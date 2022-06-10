@@ -1,10 +1,12 @@
 import { useState } from "react";
-import "./App.scss";
 import InputField from "./components/InputField/InputField";
+import { Todo } from "./types";
+import "./App.scss";
 
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
+  const [allTodos, setAllTodos] = useState<Todo[]>([])
   
   return (
     <div className="header">
