@@ -8,14 +8,30 @@ interface Props {
   setAllTodos: React.Dispatch<React.SetStateAction<Todo[]>>
 }
 
+
+
 const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
+  const handleDone = (id: number) => {
+    setAllTodos(todos.map(todo => {
+      return todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      }
+    ))
+  }
+
+  const handleDelete = (id: number) => {
+    setAllTodos(todos.filter(todo => {
+      return todo.id !== id
+    }))
+  }
+
+
   return (
     <form>
       <span>{todo.todo}</span>
       <div>
-        <span><AiFillEdit /></span>
-        <span><AiFillDelete /></span>
-        <span><MdDone /></span>
+        <span onClick={() => {console.log("edit")}}><AiFillEdit /></span>
+        <span onClick={() => handleDelete(todo.id)}><AiFillDelete /></span>
+        <span onClick={() => handleDone(todo.id)}><MdDone /></span>
       </div>   
     </form>
   )
