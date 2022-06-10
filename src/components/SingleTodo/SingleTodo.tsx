@@ -9,7 +9,6 @@ interface Props {
 }
 
 
-
 const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
   const handleDone = (id: number) => {
     setAllTodos(todos.map(todo => {
@@ -27,7 +26,8 @@ const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
 
   return (
     <form>
-      <span>{todo.todo}</span>
+      {todo.isDone ? <s>{todo.todo}</s> : <span>{todo.todo}</span>}
+
       <div>
         <span onClick={() => {console.log("edit")}}><AiFillEdit /></span>
         <span onClick={() => handleDelete(todo.id)}><AiFillDelete /></span>
