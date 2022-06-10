@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import "./InputField.scss"
 
 interface InputProps {
@@ -7,9 +8,16 @@ interface InputProps {
 }
 
 const InputField: React.FC<InputProps> = ({ todo, setTodo, handleAdd}) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+
   return (
-    <form className="input" onSubmit={handleAdd}>
+    <form className="input" onSubmit={e => {
+        handleAdd(e)
+        inputRef.current?.blur()
+        }
+      }>
       <input
+        ref={inputRef}
         type="input"
         placeholder="Enter a task"
         className="input__box"

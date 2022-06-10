@@ -22,7 +22,10 @@ const App: React.FC = () => {
   return (
     <div className="header">
       <h1 className="header__title">Taskify</h1>
-      <InputField todo={todo} setTodo= {setTodo} handleAdd={handleAdd}  />
+      <InputField todo={todo} setTodo= {setTodo} handleAdd={handleAdd} />
+      {allTodos && allTodos.map(todo => (
+        <li>{todo.todo}</li>
+      ))}
     </div>
   );
 }
