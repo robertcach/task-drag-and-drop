@@ -1,6 +1,7 @@
 import { Todo } from "../../types";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md"
+import { useState } from "react";
 
 interface Props {
   todo: Todo,
@@ -10,6 +11,10 @@ interface Props {
 
 
 const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
+  const [edit, setEdit] = useState<boolean>(false);
+  const [editTodo, setEditTodo] = useState<string>(todo.todo);
+
+
   const handleDone = (id: number) => {
     setAllTodos(todos.map(todo => {
       return todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
@@ -26,10 +31,24 @@ const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
 
   return (
     <form>
-      {todo.isDone ? <s>{todo.todo}</s> : <span>{todo.todo}</span>}
+      {edit ? (
+          <input value={editTodo} onChange={e => setEditTodo(e.target.value)}/>
+        ): (
+          todo.isDone ? <s>{todo.todo}</s> : <span>{todo.todo}</span>
+        )
+      }
 
       <div>
-        <span onClick={() => {console.log("edit")}}><AiFillEdit /></span>
+        <span onClick={() => {
+            if (!edit && !todo.isDone) {
+              setEdit(!edit)
+            }
+          }}
+        >
+          <AiFillEdit />
+        </span>
+
+
         <span onClick={() => handleDelete(todo.id)}><AiFillDelete /></span>
         <span onClick={() => handleDone(todo.id)}><MdDone /></span>
       </div>   
