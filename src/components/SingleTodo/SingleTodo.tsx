@@ -23,14 +23,21 @@ const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
   }
 
   const handleDelete = (id: number) => {
-    setAllTodos(todos.filter(todo => {
-      return todo.id !== id
-    }))
+    setAllTodos(todos.filter(todo => todo.id !== id))
   }
 
+  const handleEdit = (e: React.FormEvent, id: number) => {
+    e.preventDefault();
+
+    setAllTodos(todos.map(todo => (
+        todo.id === id ? { ...todo, todo: editTodo } : todo
+      )
+    ));
+    setEdit(false)
+  }
 
   return (
-    <form>
+    <form onSubmit={e => handleEdit(e, todo.id)}>
       {edit ? (
           <input value={editTodo} onChange={e => setEditTodo(e.target.value)}/>
         ): (
