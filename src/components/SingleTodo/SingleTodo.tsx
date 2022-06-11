@@ -37,10 +37,13 @@ const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
     setEdit(false)
   };
 
+
   useEffect(() => {
     inputRef.current?.focus();
   }, [edit])
 
+
+  
   return (
     <form onSubmit={e => handleEdit(e, todo.id)}>
       {edit ? (
@@ -59,7 +62,6 @@ const SingleTodo = ({ todo, todos, setAllTodos }: Props) => {
         >
           <AiFillEdit />
         </span>
-
 
         <span onClick={() => handleDelete(todo.id)}><AiFillDelete /></span>
         <span onClick={() => handleDone(todo.id)}><MdDone /></span>
